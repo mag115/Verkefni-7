@@ -105,11 +105,14 @@ function quest() {
     if (input === null) {
       return start();
     }
-    console.log(input);
+    input = input.trim();
 
     while (input === '' || isNaN(input)) {
       input = prompt(a + '+' + b);
-      console.log(input);
+      if (input === null) {
+        return start();
+      }
+      input = input.trim();
     }
     const inputInt = parseInt(input);
     const svar = a + b;
@@ -121,8 +124,13 @@ function quest() {
     if (input === null) {
       return start();
     }
+    input = input.trim();
     while (input === '' || isNaN(input)) {
       input = prompt(a + '-' + b);
+      if (input === null) {
+        return start();
+      }
+      input.trim();
     }
     const inputInt = parseInt(input);
     const svar = a - b;
@@ -134,9 +142,14 @@ function quest() {
     if (input === null) {
       return start();
     }
+    input = input.trim();
 
     while (input === '' || isNaN(input)) {
-      input = prompt(a + '*' + b);
+      input = prompt(c + '*' + d);
+      if (input === null) {
+        return start();
+      }
+      input = input.trim();
     }
 
     const inputInt = parseInt(input);
@@ -150,8 +163,13 @@ function quest() {
     if (input === null) {
       return start();
     }
+    input = input.trim();
     while (input === '' || isNaN(input)) {
-      input = prompt(a + '/' + b);
+      input = prompt(f + '/' + c);
+      if (input === null) {
+        return start();
+      }
+      input = input.trim();
     }
     const inputInt = parseInt(input);
     const svar = f / c;
