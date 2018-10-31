@@ -24,7 +24,6 @@ function start() {
     alert('Þú vildir ekki spila');
   }
 
-  villa;
 }
 
 /**
@@ -40,7 +39,6 @@ function start() {
  */
 function play() {
   const spurning = ask();
-
   const svar = confirm('Viltu spila annann?');
 
   if (svar === true) {
@@ -67,16 +65,24 @@ function play() {
  * Sniðugt væri að færa það að búa til spurningu í nýtt fall sem ask() kallar í.
  */
 function ask() {
-
+  const timi = new Date();
   let spurningarFjöldi = 0;
   let rettSvar = 0;
+  let array;
 
   while (spurningarFjöldi < GAMES_TO_PLAY) {
-    quest();
-    spurningarFjöldi = spurningarFjöldi + 1;
+    array = quest();
+    spurningarFjöldi += 1;
+      if(array[0]===array[1]) {
+        rettSvar += 1;
+      }
   }
+  const stopp = new Date();
+  let lokaTimi = stopp - timi;
+  lokaTimi /= 1000;
+  let medalRett = rettSvar / lokaTimi;
+  alert('Þú svaraðir ' + rettSvar + ' af 10 dæmum rétt á ' + lokaTimi.toFixed(2) + ' sekúndum\nMeðalrétt svör á sekúndu eru ' + medalRett.toFixed(2));
 
-  alert(rettSvar);
 }
 
 /**
@@ -95,28 +101,61 @@ function quest() {
   const rettSvar = 0;
 
   if ( tala === 1 ) {
-    const input = prompt(a + '+' + b);
+    let input = prompt(a + '+' + b);
+    if (input === null) {
+      return start();
+    }
+    console.log(input);
+
+    while (input === '' || isNaN(input)) {
+      input = prompt(a + '+' + b);
+      console.log(input);
+    }
+    const inputInt = parseInt(input);
     const svar = a + b;
-    return input, svar;
+    return [inputInt, svar];
   }
 
   if ( tala === 2) {
-    const input = prompt(a + '-' + b);
+    let input = prompt(a + '-' + b);
+    if (input === null) {
+      return start();
+    }
+    while (input === '' || isNaN(input)) {
+      input = prompt(a + '-' + b);
+    }
+    const inputInt = parseInt(input);
     const svar = a - b;
-    return input, svar;
+    return [inputInt, svar];
   }
 
   if (tala === 3) {
-    const input = prompt(c + '*' + d);
+    let input = prompt(c + '*' + d);
+    if (input === null) {
+      return start();
+    }
+
+    while (input === '' || isNaN(input)) {
+      input = prompt(a + '*' + b);
+    }
+
+    const inputInt = parseInt(input);
     const svar = c * d;
-    return input, svar;
+    return [inputInt, svar];
   }
 
   if (tala === 4) {
     const f = c * randomNumber(2 , 10);
-    const input = prompt(f + '/' + c);
+    let input = prompt(f + '/' + c);
+    if (input === null) {
+      return start();
+    }
+    while (input === '' || isNaN(input)) {
+      input = prompt(a + '/' + b);
+    }
+    const inputInt = parseInt(input);
     const svar = f / c;
-    return input, svar;
+    return [inputInt, svar];
   }
 }
 
